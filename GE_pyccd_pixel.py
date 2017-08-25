@@ -5,12 +5,14 @@
 
 Usage: GE_pyccd_pixel.py [options]
 
-  --path=PATH   path
-  --row=ROW     row
-  --band=BAND   band
-  --lon=LON     longitude
-  --lat=LAT     latitude
-  --yl=ylim     y limit
+  --path=PATH       path
+  --row=ROW         row
+  --band=BAND       band
+  --lon=LON         longitude
+  --lat=LAT         latitude
+  --yl=ylim         y limit
+  --start=START     starting year
+  --finish=FINISH   finish year
 
 
 """
@@ -21,7 +23,6 @@ import numpy as np
 import datetime
 import pandas as pd
 import matplotlib.dates as mdates
-from IPython.display import Image
 from matplotlib import dates
 from pylab import *
 
@@ -68,6 +69,20 @@ def pixel(args):
         yl1 = args['--yl']
         yl = [int(i) for i in (yl1.split(' '))]
 
+
+    if args['--start']:
+        start = args['--start']
+        start = '{a}-01-01'.format(a=start)
+    else:
+        start = '1984-01-01'
+
+    if args['--finish']:
+        finish = args['--finish']
+        finish = '{a}-01-01'.format(a=finish)
+    else:
+        finish = '2017-01-01'
+
+
     #Location
     point = {'type':'Point', 'coordinates':[lon, lat]};
 
@@ -89,37 +104,37 @@ def pixel(args):
             'LANDSAT/LC8_SR').filter(
             ee.Filter.eq('WRS_PATH', path)).filter(
             ee.Filter.eq('WRS_ROW', row)).filterDate(
-            '2012-01-01', '2018-01-01');
+            start, finish);
 
     l7_collection = ee.ImageCollection(
             'LANDSAT/LE7_SR').filter(
             ee.Filter.eq('WRS_PATH', path)).filter(
             ee.Filter.eq('WRS_ROW', row)).filterDate(
-            '1984-01-01', '2018-01-01');
+            start, finish);
     
     l5_collection = ee.ImageCollection(
             'LANDSAT/LT5_SR').filter(
             ee.Filter.eq('WRS_PATH', path)).filter(
             ee.Filter.eq('WRS_ROW', row)).filterDate(
-            '1984-01-01', '2018-01-01');
+            start, finish);
 
     l8_thermal = ee.ImageCollection(
             'LANDSAT/LC08/C01/T1_TOA').filter(
             ee.Filter.eq('WRS_PATH', path)).filter(
             ee.Filter.eq('WRS_ROW', row)).filterDate(
-            '2012-01-01', '2018-01-01').select('B10');
+            start, finish).select('B10');
         
     l7_thermal = ee.ImageCollection(
             'LANDSAT/LE07/C01/T1_TOA').filter(
             ee.Filter.eq('WRS_PATH', path)).filter(
             ee.Filter.eq('WRS_ROW', row)).filterDate(
-            '1984-01-01', '2018-01-01').select('B6_VCID_1');
+            start, finish).select('B6_VCID_1');
 
     l5_thermal = ee.ImageCollection(
             'LANDSAT/LT05/C01/T1_TOA').filter(
             ee.Filter.eq('WRS_PATH', path)).filter(
             ee.Filter.eq('WRS_ROW', row)).filterDate(
-            '1984-01-01', '2018-01-01').select('B6');
+            start, finish).select('B6');
 
     #LC8 Band names
     band_list = ['B2','B3','B4','B5','B6','B7','cfmask','cfmask_conf']
