@@ -11,14 +11,14 @@ The purpose of this repository is for providing basic scripts to utilize the PyC
 
 # Dependencies
 
-  *[PyCCD](https://github.com/USGS-EROS/lcmap-pyccd)
+  * [PyCCD](https://github.com/USGS-EROS/lcmap-pyccd)
 
-  *[Google Earth Engine for Python](https://developers.google.com/earth-engine/python_install)
+  * [Google Earth Engine for Python](https://developers.google.com/earth-engine/python_install)
 
-  *[Docopt](https://github.com/docopt/docopt)
+  * [Docopt](https://github.com/docopt/docopt)
 
-  *[Matplotlib](https://github.com/matplotlib/matplotlib)
+  * [Matplotlib](https://github.com/matplotlib/matplotlib)
 
-  *[Pandas](https://github.com/pandas-dev/pandas)
+  * [Pandas](https://github.com/pandas-dev/pandas)
 
-  *[Numpy](https://github.com/numpy/numpy)
+  * [Numpy](https://github.com/numpy/numpy)
